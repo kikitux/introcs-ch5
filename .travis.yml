@@ -1,0 +1,35 @@
+language: java
+
+matrix:
+  include:
+    - os: osx
+      sudo: required
+      jdk: oraclejdk8
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+install:
+  - ./gradlew assemble
+
+script:
+  - ./gradlew check
+
+after_success:
+  - find . -name '*kexe' -ls
+
+#deploy:
+#  provider: releases
+#  skip_cleanup: true
+#  api_key:
+#    secure: Pvk+wT3PSj4sXSkKKAP1WJS1DVTyEm5hOWppMcZZX7T/xuToollizmUCfWY8TtpC/Qp2fY+VeI3UMhNAouq4TlBbNdzXO0lNbp/hjx7l6aH5kHgOf37A6J4TPdO8UPxT13Va0pUjmUxZMr6cMY/iAPGN8hxAO5En6YoPzswcLoUMukgAIA6ExYFNUn+w5q2cbsTRwS5+M3a34L3JvdlcunBuDzeV0dHQGg7EZaTrlZ7qDl9Shztbev9LefUS8p3vvzsXyTWgGeOR4zk8PXZSXfRIP5I9y0A2rJ72ol8JgOgQ9zyA8GIiucaZ2kHfYpRTHJ+IDnbE29EvXLO64XN3zsVbZEIAdHHuJEqhvPKFMjj8k+dUAzMYZAmHZqaHNx9vgGbEy7PDb8QHXV40eCmRvBCYvKHmFXLDmWbqMunr1iKwcVRHu52lVhEKjCdrm/rpBA2Y490GKI4j1NEIZBfAPqV0aaqJdvx+zKPJSExv6BAgLlKtBlSDkN7xJco2muibd/3J/rdRon5g3oKRSpy27vIkkD3lNiLC3n/JKxSzFoxhAANSh/ZhQssbSHX5PwgkpqOFHKGxCdZlROGXA0/axUhU7ldobFl/qRD5H1WgfILg3vGs1CpsyJEDkSFkV8RmTINEqXJfOoYCb/fvPaxrCpIFWCRcodGfIdg35aL2BI8=
+#  file: "./build/bin/HelloWorld/main/release/executable/helloWorldKN.kexe"
+#  on:
+#    repo: kikitux/helloWorldKN
+#    tags: true
