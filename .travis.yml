@@ -7,12 +7,13 @@ matrix:
       jdk: oraclejdk8
 
 before_cache:
+  - rm -f $HOME/.konan/cache/lock
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - $HOME/.konan/cache/
+    - $HOME/.konan/cache
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
